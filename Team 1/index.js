@@ -8,6 +8,9 @@ var fs = require('fs');
 const express = require("express");
 //create a new express application
 const app = express();
+const port = 8080;
 
 app.get('/', (req, res) => res.send('Hello World!'))
-app.listen(8080);
+app.listen(port, () => {
+	console.log('server is listening on port ${port}')
+})
