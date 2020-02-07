@@ -13,7 +13,7 @@ app.get('/', (req, res) =>
 )
 
 app.get('/exponent/:integer', (req, res) =>
-  res.send(getExponent.getExponent(req, res))
+  getExponent.getExponent(req, res)
 )
 
 app.listen(port, () =>
