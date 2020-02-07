@@ -1,5 +1,5 @@
 function getExponent(req, res) {
-    module.exports = {getExponent};
+    ;
     var integer = req.params.integer('integer');
     var exponent = integer * integer;
 
@@ -10,3 +10,4 @@ function getExponent(req, res) {
     }
     res.send({"integer": integer, "exponent": exponent});
 }
+module.export = {getExponent}

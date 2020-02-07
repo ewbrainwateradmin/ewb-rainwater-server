@@ -1,4 +1,3 @@
-import {getExponent} from 'getExponent.js';
 var http = require('http');
 var fs = require('fs');
 
@@ -6,6 +5,7 @@ var fs = require('fs');
 "use strict";
 
 //require the express packages
+const exponentModule = require('./handlers/getExponent');
 const express = require("express");
 //create a new express application
 const app = express();
@@ -16,7 +16,7 @@ app.get('/', function(req, res){
 })
 
 app.get('/exponent/:integer', function(req, res){
-	getExponent(req, res);
+	res.send(exponentModule.getExponent());
 })
 
 app.listen(port, () => {
