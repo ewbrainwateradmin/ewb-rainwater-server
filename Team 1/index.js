@@ -15,9 +15,7 @@ app.get('/', function(req, res){
 	res.send('Hello World!')
 })
 
-app.get('/exponent/:integer', function(req, res){
-	res.send(exponentModule.getExponent());
-})
+app.get('/exponent/:integer', exponentModule.getExponent);
 
 app.listen(port, () => {
 	console.log('server is listening on port ${port}')
