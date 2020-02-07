@@ -1,11 +1,11 @@
 module.export = function getExponent(req, res) {
-    var integer = req.params.integer('integer');
-    var exponent = integer * integer;
-
-    if (error) {
+    try {
+        var int = parseInt(req.params.integer, 10)
+        var exponent = int * int
+        res.status(200)
+        res.send({"integer": int, "exponent": exponent})
+    } catch (error) {
         res.status(500);
-    } else {
-        res.status(200);
+        res.send({"error" : "eRroR ErroR ErROr"})
     }
-    res.send({"integer": integer, "exponent": exponent});
 }
