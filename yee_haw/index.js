@@ -3,7 +3,7 @@
 const express = require("express")
 const app = express()
 
-const address = process.env.ADRR || ":3000"
+const address = process.env.ADRR || ":80"
 const [host, port] = address.split(":")
 
 app.get('/', (req, res) =>
