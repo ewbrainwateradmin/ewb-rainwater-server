@@ -13,4 +13,5 @@ function getExponent(req, res) {
 
   }
 }
+
 module.exports = {getExponent}
