@@ -8,8 +8,6 @@ const getWaterBottles = require('./handlers/getWaterBottles')
 const getWaterDollars = require('./handlers/getWaterDollars')
 const update_from_database = require('./handlers/update_from_database')
 
-const database_functions = require('./handlers/database_functions.js')
-
 const address = process.env.ADRR || ":80"
 const [host, port] = address.split(":")
 

@@ -15,6 +15,8 @@ function update() {
     })
     // Write data to database
     database_functions.insertData(water)
+      .then((message) => {console.log(message)})
+      .catch((message) => {console.log(message)})
 
   } catch (err) {console.log(err.message)}
 }

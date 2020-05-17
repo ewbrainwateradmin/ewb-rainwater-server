@@ -1,6 +1,7 @@
 "use strict"
 
 const mysql = require('mysql')
+var sleep = require('sleep')
 
 const con = mysql.createConnection({
   host: 'ewb-rainwater-database',
@@ -16,13 +17,15 @@ con.connect((err) => {
 })
 
 function insertData(water_amount) {
-  try {
-    var sql = `INSERT INTO WATER_SAVED (entry_time, water_amount) VALUES (NOW(), ${water_amount})`
-    con.query(sql, (err, result) => {
-      if (err) throw err
-      console.log("Record Inserted")
-    })
-  } catch (err) {console.log(err.message)}
+  return new Promise((resolve, reject) => {
+    try {
+      var sql = `INSERT INTO WATER_SAVED (entry_time, water_amount) VALUES (NOW(), ${water_amount})`
+      con.query(sql, (err, result) => {
+        if (err) throw err
+        resolve("Record Inserted")
+      })
+    } catch (err) {reject(err.message)}
+  })
 }
 
 module.exports = {insertData}
