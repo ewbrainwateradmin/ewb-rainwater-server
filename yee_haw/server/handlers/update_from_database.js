@@ -2,6 +2,7 @@
 
 const fs = require("fs")
 const path = require("path")
+const database_functions = require("./database_functions.js")
 
 function update() {
   try {
@@ -12,10 +13,10 @@ function update() {
     fs.writeFile(path.resolve(__dirname, "water.txt"), water, (err) => {
       if (err) throw err
     })
+    // Write data to database
+    database_functions.insertData(water)
 
-  } catch (err) {
-    console.log(err.message)
-  }
+  } catch (err) {console.log(err.message)}
 }
 
 module.exports = {update}

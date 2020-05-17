@@ -27,12 +27,19 @@ REM - Second line is assigning the value of the inspect function to the variable
 echo Waiting for MySQL...
 :loop_start
 for /f %%i in ('docker inspect --format "{{.State.Health.Status}}" ewb-rainwater-database') do SET state=%%i
-IF "%state%"=="healthy" (goto :loop_break)
+IF "%state%"=="healthy" (goto :break_healthy)
+IF "%state%"=="unhealthy" (goto :break_unhealthy)
 goto :loop_start
-:loop_break
+:break_unhealthy
+echo ---
+echo ---
+echo MySQL container is unhealthy, something went wrong
+echo ---
+echo ---
+:break_healthy
 
 REM - Login in MySQL Client and change authentication settings
-REM - Using -i, not -it because of a strange 'winpty' error
+REM - Using -i for no terminal feedback, as opposed to -it because of a strange 'winpty' error
 REM - Change auth settings because of dispartity between server and client versions
 docker exec -i ewb-rainwater-database mysql -uroot -pewb2020 < mysql_auth_changes.sql
 
