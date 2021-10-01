@@ -1,22 +1,25 @@
 @echo off
 
-REM - disconnect both server and database docker containers
-REM - and remove network to reset
+REM - disconnect docker containers and remove network to reset
 docker network disconnect ewb-rainwater-network ewb-rainwater-server
 docker network disconnect ewb-rainwater-network ewb-rainwater-database
+docker network disconnect ewb-rainwater-network ewb-rainwater-client
 docker network rm ewb-rainwater-network
 
-REM - Create new server and database containers
+REM - Create new containers
 cd database
 call docker_commands_database.bat
 cd ..\server
 call docker_commands_server.bat
-cd ..
+cd ..\..\ewb-rainwater-client
+call docker_commands_client.bat
+cd ..\ewb-rainwater-server
 
 REM - Create Docker network and add both server and database containers
 docker network create ewb-rainwater-network
 docker network connect ewb-rainwater-network ewb-rainwater-server
 docker network connect ewb-rainwater-network ewb-rainwater-database
+docker network connect ewb-rainwater-network ewb-rainwater-client
 
 REM - Start database container (Do first, since server tries to connect to database)
 docker start ewb-rainwater-database
@@ -45,3 +48,4 @@ docker exec -i ewb-rainwater-database mysql -uroot -pewb2020 < mysql_auth_change
 
 REM - Start server container
 docker start ewb-rainwater-server
+docker start ewb-rainwater-client
